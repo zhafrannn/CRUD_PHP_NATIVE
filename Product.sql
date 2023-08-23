@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Aug 14, 2023 at 11:17 AM
+-- Generation Time: Aug 14, 2023 at 02:18 PM
 -- Server version: 5.7.39
 -- PHP Version: 8.2.0
 
@@ -76,19 +76,19 @@ CREATE TABLE `Product` (
 -- Indexes for table `Book`
 --
 ALTER TABLE `Book`
-  ADD KEY `Book_productSKU_foreign` (`productSKU`);
+  ADD PRIMARY KEY (`productSKU`);
 
 --
 -- Indexes for table `DVD-Disk`
 --
 ALTER TABLE `DVD-Disk`
-  ADD KEY `DVD-Disk_productSKU_foreign` (`productSKU`);
+  ADD PRIMARY KEY (`productSKU`);
 
 --
 -- Indexes for table `Furniture`
 --
 ALTER TABLE `Furniture`
-  ADD KEY `Furniture_productSKU_foreign` (`productSKU`);
+  ADD PRIMARY KEY (`productSKU`);
 
 --
 -- Indexes for table `Product`
@@ -104,19 +104,19 @@ ALTER TABLE `Product`
 -- Constraints for table `Book`
 --
 ALTER TABLE `Book`
-  ADD CONSTRAINT `Book_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`);
+  ADD CONSTRAINT `Book_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `DVD-Disk`
 --
 ALTER TABLE `DVD-Disk`
-  ADD CONSTRAINT `DVD-Disk_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`);
+  ADD CONSTRAINT `DVD-Disk_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Furniture`
 --
 ALTER TABLE `Furniture`
-  ADD CONSTRAINT `Furniture_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`);
+  ADD CONSTRAINT `Furniture_productSKU_foreign` FOREIGN KEY (`productSKU`) REFERENCES `Product` (`SKU`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
