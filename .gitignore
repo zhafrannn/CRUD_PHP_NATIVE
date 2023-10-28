@@ -1,0 +1,16 @@
+vendor/
+node_modules/
+public/uploads/
+
+.DS_Store
+Thumbs.db
+
+.env
+.env.example
+
+*.log
+
+*.tmp
+*.cache
+*.db
+*.sql

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .main{
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .container  {
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+            height: 150px;
+            padding: 10px;
+            margin: 20px;
+            border: 2px solid black;
+            text-align: center;
+        }
+
+        .delete-checkbox{     
+            top: 8px;
+            left: 16px;
+            font-size: 18px;
+        }
+
+        .content{
+            text-align: center;
+        }
+    </style>
+    <title>View</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="clickButton">Product List</h1>
+        <div class="button">
+            <a href=""></a>
+            <button class="add" id="add-product-btn">ADD</button>
+            <button class="massDelete" id="delete-product-btn">MASS DELETE</button>
+            <!-- <button class="edit" id="edit-product-btn">EDIT</button> -->
+        </div>
+    </div>
+    <hr>
+    <div class="main">
+        
+    </div>
+</body>
+<script>
+    $(document).ready(function () {
+        $("#add-product-btn").click(function(){
+            document.location='/addProduct';
+        });
+        // $("#edit-product-btn").click(function(){
+        //     document.location='/editProduct';
+        // });
+        // Send an AJAX request to the backend
+        // alert("HI")
+        $.ajax({
+            url: '/product/read',
+            method: 'GET',
+            dataType: 'json', 
+            success: function (datas) {
+                // console.log(datas)
+                
+                let element = ""
+                for(data of datas){
+                    
+                    element += `<div class="container">
+                                    <div>
+                                        <input type="checkbox" class="delete-checkbox" dataId=${data[0]}>
+                                    </div>
+                                    <div id="content">
+                                        <span class="sku">SKU : ${data[0]}</span><br>
+                                        <span class="name">Name : ${data[1]}</span><br>
+                                        <span class="price">Price : ${data[2]}</span><br>
+                                        <span class="price">${data[3]}</span><br>
+                                    </div>
+                                </div>`
+                }
+                $(".main").html(element)
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+        $("#delete-product-btn").click(function() {
+            let a = [];
+            $(".delete-checkbox:checked").each(function() {
+                a.push($(this).attr('dataId'))
+                console.log(typeof a)
+                $.ajax({
+                    url: '/product/delete',
+                    method: 'DELETE',
+                    data: JSON.stringify({ skus: a }),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function (datas) {
+                        console.log(datas)
+                        $(".container .delete-checkbox:checked").parent().parent().remove()
+                        
+                        // console.log(a)
+                    },
+                    error: function (error) {
+                        console.error('Error:', error);
+                        console.log('sampai sini')
+                    }
+                });
+            });           
+        });
+    });
+    
+    </script>
+    
+</html>
