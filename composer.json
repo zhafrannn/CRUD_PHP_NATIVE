@@ -1,0 +1,12 @@
+{
+    "require": {
+        "bramus/router": "^1.6",
+        "sergeytsalkov/meekrodb": "2.4"
+    },
+    "autoload": {
+        "classmap": [
+            "Models",
+            "controllers"
+        ]
+    }
+}

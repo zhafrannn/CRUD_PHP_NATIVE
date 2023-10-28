@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '26a8f37e6a4ccc9acd3d9efc38eb6df6b1a24d70',
+        'name' => '__root__',
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '26a8f37e6a4ccc9acd3d9efc38eb6df6b1a24d70',
+            'dev_requirement' => false,
+        ),
+        'bramus/router' => array(
+            'pretty_version' => '1.6.1',
+            'version' => '1.6.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bramus/router',
+            'aliases' => array(),
+            'reference' => '55657b76da8a0a509250fb55b9dd24e1aa237eba',
+            'dev_requirement' => false,
+        ),
+        'sergeytsalkov/meekrodb' => array(
+            'pretty_version' => 'v2.4',
+            'version' => '2.4.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sergeytsalkov/meekrodb',
+            'aliases' => array(),
+            'reference' => 'e30c240d54bc81f58c58507a9ed768032eb494a5',
+            'dev_requirement' => false,
+        ),
+    ),
+);

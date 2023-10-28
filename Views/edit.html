@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js" ></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <link rel="stylesheet" href="Views/Add_Product/style.css"> -->
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dvd-container{
+            border: 2px solid;   
+            width: 50%;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .furniture-container{
+            border: 2px solid; 
+            width: 50%;
+            padding: 10px;
+            margin: 5px;
+            
+        }
+
+        .book-container{
+            border: 2px solid;
+            width: 50%;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .dvd-container, .book-container, .furniture-container {
+            display: none;
+        }
+
+    </style>
+    <title>Edit Product</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="clickButton">Edit    Product List</h1>
+        <div class="button">
+            <button class="saveButton" id="saveButton">Save</button>
+            <button class="cancel" onclick="document.location='/'">Cancel</button>
+        </div>
+    </div>
+    <hr>
+    <div class="main">
+        
+        <div class="product_id">
+            <input type="text">
+        </div>
+        <div class="content">
+            <form action="" method="post" id="productForm">
+                <div id="sku">
+                    <p>
+                        SKU <input type="text">
+                    </p> 
+                </div>
+                <div id="name">
+                    <p>
+                        Name  <input type="text">
+                    </p> 
+                </div>
+                <div id="price">
+                    <p>
+                        Price  <input type="number">
+                    </p> 
+                </div>
+                <br>
+                <!-- <div class="type-switcher">
+                    <label for="type">Type Switcher</label>
+                    <select name="type" id="productType">
+                        <option value="">Type Switcher</option>
+                        <option value="Dvd">DVD-Disk</option>
+                        <option value="Furniture" >Furniture</option>
+                        <option value="Book">Book</option>
+                    </select> 
+                </div>
+                <br>
+                <div id="Dvd-container" class="dvd-container">
+                    <p>Size (MB) <input id="size" type="number"></p>
+                    <p>Product Description</p>
+                </div>
+                <div id="Furniture-container" class="furniture-container">
+                    <p >Height (CM) <input id="height" type="number"></p>
+                    <p >Width (CM) <input id="width" type="number"></p>
+                    <p >Length (CM) <input id="length" type="number"></p>
+                    <p>Product Description</p>
+                </div>
+                <div id="Book-container" class="book-container">
+                    <p >Weight (KG) <input id="weight" type="number"></p>
+                    <p>Product Description</p>
+                </div> -->
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#productType").change(function(){
+            getType = $("#productType").val();
+            // console.log(getType);
+            test = `#${getType}-container`;
+            $(test).show();
+            $('#productType').find('option').not(':selected').each(function(k,v){
+                // console.log(k,v.text, v.value);
+                getValue = `#${v.value}-container`;
+                $(getValue).hide();
+            });
+            // console.log(test)  
+        });
+        $("#saveButton").click(function(){
+            // let x = $("#productForm")[0];
+            // console.log(x)
+            const product = {
+                sku: $("#productForm").find("input:eq(0)").val(),
+                name: $("#productForm").find("input:eq(1)").val(),
+                price: $("#productForm").find("input:eq(2)").val(),
+                type: $("#productType").val(),
+                typeAttr: {
+                    height: $("#productForm").find("#height").val(),
+                    width: $("#productForm").find("#width").val(),
+                    length: $("#productForm").find("#length").val(),
+                    weight: $("#productForm").find("#weight").val(),    
+                    size: $("#productForm").find("#size").val()
+                }
+                };
+
+            $.ajax({
+                url: '/product/create',
+                method: 'POST',
+                data: JSON.stringify(product),
+                dataType: 'json',
+                contentType: "application/json", 
+                success: function (response) {
+                    console.log("Response from server:",response)
+                },
+                error: function (error, status) {
+                    console.error('Error:', error, 'Status:', status);
+                    console.log("sampai sini")
+                }
+            });
+            window.location.replace("/")
+        });
+    });
+</script>
+
+</html>
